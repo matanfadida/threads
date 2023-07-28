@@ -6,7 +6,7 @@ const AddPost = () => {
         <span>add image</span>
         </div>
         <div>
-            <span>share</span>
+            <span>share to</span>
             <span>post</span>
         </div>
     </div>
