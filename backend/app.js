@@ -5,11 +5,21 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 5000;
 
-app.use(app)
+const PostRoutes = require('./routes/post');
 
-app.get('/', (req, res) => {
+app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','POST, GET, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+})
+
+app.get('/api', (req, res) => {
   res.send('Hello World!');
 });
+
+app.use('/api/post',PostRoutes);
 
 mongoose.connect('mongodb+srv://matanfadida7:NHWscF0isy8JIp6f@threads.qn6wcph.mongodb.net/').then(() =>{
     app.listen(port, () => {
