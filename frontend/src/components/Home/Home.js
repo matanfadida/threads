@@ -1,4 +1,3 @@
-import Footer from "../Footer/footer";
 import Post from "../Post/Post";
 
 import classes from './Home.module.css';
@@ -42,7 +41,6 @@ const Home = (props) => {
     <div>
       <ul className={classes['home-ul']}>{posts}</ul>
     </div>
-    <Footer/>
     </>
   );
 };
