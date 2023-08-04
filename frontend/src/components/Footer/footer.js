@@ -1,20 +1,34 @@
+import { GoHome } from 'react-icons/go';
+import { FiSearch } from 'react-icons/fi';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { RiUser3Line } from 'react-icons/ri';
+import { BiMessageSquareEdit } from 'react-icons/bi';
+import classes from './footer.module.css';
+import { useEffect, useState } from 'react';
+
+
 const Footer = () => {
-    return <div>
+    const [activeHome, setActiveHome] = useState(false);
+    // useEffect(() => {
+    //     if()
+    //     setActiveHome()
+    // },[])
+    return <div className={classes.footer}>
         <ul>
             <li>
-                <a href="1">Home</a>
+                <a href="1"><GoHome size={30}/></a>
             </li>
             <li>
-                <a href="1">search</a>
+                <a href="1"><FiSearch size={30}/></a>
             </li>
             <li>
-                <a href="1">post</a>
+                <a href="1"><BiMessageSquareEdit size={30}/></a>
             </li>
             <li>
-                <a href="1">activity</a>
+                <a href="1"><AiOutlineHeart size={30}/></a>
             </li>
             <li>
-                <a href="1">profile</a>
+                <a href="1"><RiUser3Line size={30}/></a>
             </li>
         </ul>
     </div>
