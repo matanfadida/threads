@@ -1,4 +1,5 @@
 const Profile = (props) => {
+  console.log(props.id);
   return (
     <div>
         <div>

@@ -9,5 +9,5 @@
  }
 .footer li { display:inline-block; }
 .footer ul { justify-content: space-between;display: flex; margin: 20px; }
-.footer a { color: rgb(102, 102, 102); }
+.footer .not_active { color: rgb(102, 102, 102); }
 

@@ -5,9 +5,12 @@ import { TbMessageCircle2, TbShare3 } from 'react-icons/tb';
 
 
 const Post = (props) => {
+    const HandlerProfileLink = (id, page) => {
+        props.ChangePageHandler(page, id);
+    }
     return <li className={classes.post}>
         <div>
-            <img className={classes['post-img']} src={props.image} alt={props.name}/>
+            <img onClick={() => HandlerProfileLink(props._id, 'profile')} className={classes['post-img']} src={props.image} alt={props.name}/>
         </div>
         <div className={classes['side-two']}>
             <strong>{props.name}</strong>

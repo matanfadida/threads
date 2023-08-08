@@ -32,6 +32,7 @@ const Home = (props) => {
         text={post.text}
         comments={post.comments}
         likes={post.likes}
+        ChangePageHandler={props.ChangePageHandler}
       />
     );
   });
