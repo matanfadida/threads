@@ -3,14 +3,16 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './Home/Home';
 import Footer from "./Footer/footer";
 import Profile from "./Profile/profile";
+import SignUp from "./Account/sign-up";
 
 
 const initUrlState = {
-  'home': true,
+  'home': false,
   'search': false,
   'profile': false,
   'addpost': false,
-  'active': false
+  'active': false,
+  'signup': true,
 };
 const USERIDDEFAULD = "1";
 const App = () => {
@@ -36,6 +38,7 @@ const App = () => {
     <Fragment>
       {activePage['home'] && <Home ChangePageHandler={ChangePageHandler}/>}
       {activePage['profile'] && <Profile id={profileId}/>}
+      {activePage['signup'] && <SignUp/>}
       {/* <Profile/> */}
       {/* <Routes>
         <Route path="/" element={<Home/>} />

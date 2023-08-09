@@ -7,17 +7,20 @@ exports.SignUp = async (req, res, next) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const image = req.body.image;
+    console.log('asdasdasdefwa');
     try{
-        const user = new User(
-            email,
-            password,
-            userName,
-            firstName,
-            lastName,
-            image);
-        const result = await user.save();
-        res.status(200).json({massage:"add product success!"});
-    } catch{
-
+        const newUser = new User({
+            email: email,
+            password: password,
+            userName: userName,
+            firstName: firstName,
+            lastName: lastName,
+            image: image,
+        });
+            
+        const result = await newUser.save();
+        res.status(200).json({massage:"add user success!"});
+    } catch (err){
+        console.log(err);
     }
 }
