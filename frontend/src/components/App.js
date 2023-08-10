@@ -4,6 +4,7 @@ import Home from './Home/Home';
 import Footer from "./Footer/footer";
 import Profile from "./Profile/profile";
 import SignUp from "./Account/sign-up";
+import SignIn from "./Account/sign-in";
 
 
 const initUrlState = {
@@ -12,7 +13,8 @@ const initUrlState = {
   'profile': false,
   'addpost': false,
   'active': false,
-  'signup': true,
+  'signup': false,
+  'signin': true,
 };
 const USERIDDEFAULD = "1";
 const App = () => {
@@ -39,6 +41,7 @@ const App = () => {
       {activePage['home'] && <Home ChangePageHandler={ChangePageHandler}/>}
       {activePage['profile'] && <Profile id={profileId}/>}
       {activePage['signup'] && <SignUp/>}
+      {activePage['signin'] && <SignIn/>}
       {/* <Profile/> */}
       {/* <Routes>
         <Route path="/" element={<Home/>} />

@@ -11,15 +11,6 @@ const UserRoutes = require('./routes/user');
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
 app.use(cors({origin:true,credentials: true}));
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin','*');
-//     res.setHeader('Access-Control-Allow-Methods','POST, GET, PUT, PATCH, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     if (req.method === "OPTIONS") {
-//          res.status(200).end();
-//     }
-//      next();
-// });
 
 app.get('/api', (req, res) => {
   res.send('Hello World!');
@@ -27,6 +18,13 @@ app.get('/api', (req, res) => {
 
 app.use('/api/post',PostRoutes);
 app.use('/api/user',UserRoutes);
+
+app.use((error, req, res, next) => {
+  const status = error.statusCode || 500;
+  const message = error.message;
+  console.log(message);
+  res.status(status).json({message: message});
+})
 
 mongoose.connect('mongodb+srv://matanfadida7:NHWscF0isy8JIp6f@threads.qn6wcph.mongodb.net/').then(() =>{
     app.listen(port, () => {
