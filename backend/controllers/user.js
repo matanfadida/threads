@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 exports.SignUp = async (req, res, next) => {
     const email = req.body.email;
@@ -8,16 +10,17 @@ exports.SignUp = async (req, res, next) => {
     const lastName = req.body.lastName;
     const image = req.body.image;
     try{
+        const hashedPass = await bcrypt.hash(password, 12);
         const newUser = new User({
             email: email,
-            password: password,
+            password: hashedPass,
             userName: userName,
             firstName: firstName,
             lastName: lastName,
             image: image,
         });
         const result = await newUser.save();
-        res.status(200).json({massage:"add user success!"});
+        res.status(201).json({massage:"add user success!"});
     } catch (err){
         err.statusCode = 500;
         next(err);
@@ -29,15 +32,20 @@ exports.SignIn = async (req, res, next) => {
     const password = req.body.password;
     try{
         const user = await User.findOne({email:email});
-        console.log('sadasd',user);
         if(!user){
             const error = new Error('not find a user !');
             error.statusCode = 401;
             throw error;
         }
         //check passowrd 
-        const token = jwt.sing({email:user.email, userId: user._id},"SfasfASFREgGETGE12!@#fdsf#$f@!F",{expiresIn:'1h'});
-        res.status(200).json({token:token})
+        const isEqual = await bcrypt.compare(password, user.password);
+        if(!isEqual){
+            const error = new Error('The password is incorrect !');
+            error.statusCode = 401;
+            throw error;
+        }
+        const token = jwt.sign({email:user.email, userId: user._id},"Sfa14shASFREgGETGE12!@#fdsf#$f@!F",{expiresIn:'1h'});
+        res.status(200).json({token:token, userId: user._id})
     } catch (err){
         console.log(err);
         err.statusCode = 500;

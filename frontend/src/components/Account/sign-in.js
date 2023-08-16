@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-const SignIn = () => {
+const SignIn = (props) => {
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
 
@@ -21,15 +21,22 @@ const SignIn = () => {
             });
           
             if (!res.ok) {
-              console.log(res.error);
+                const error = await res.json();
+                throw error;
             }
           
-            const data = await res.json(); // Use res.json() to parse the response data
-          
-            console.log('res', data);
+            const data = await res.json();
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('userId', data.userId)
+            props.setToken(data.token);
+            props.ChangePageHandler('home');
           } catch (error) {
-            console.error(error);
+            console.log('error message: ',error.message);
           }
+    }
+
+    const MoveToSignUpHandler = () => {
+        props.ChangePageHandler('signup');
     }
 
 
@@ -42,6 +49,7 @@ const SignIn = () => {
         </div>
         <div>
             <button>היכנס</button>
+            <button onClick={MoveToSignUpHandler}>הירשם</button>
         </div>
     </form>
 }

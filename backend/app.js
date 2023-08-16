@@ -22,8 +22,11 @@ app.use('/api/user',UserRoutes);
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
-  console.log(message);
-  res.status(status).json({message: message});
+  let statusMessage = "";
+  if(status === 400 || status === 401){
+    statusMessage = "Authorization Error";
+  }
+  res.status(status).json({message: message, status: statusMessage});
 })
 
 mongoose.connect('mongodb+srv://matanfadida7:NHWscF0isy8JIp6f@threads.qn6wcph.mongodb.net/').then(() =>{

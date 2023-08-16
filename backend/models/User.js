@@ -1,52 +1,52 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    email:{
-        type: String,
-        required: true,
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  userName: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  posts: [
+    {
+      postId: { type: Schema.Types.ObjectId, ref: "Post" },
     },
-    password: {
-        type: String,
-        required: true,
+  ],
+  comments: [
+    {
+      commentId: { type: Schema.Types.ObjectId, ref: "Comment" },
     },
-    userName:{
-        type: String,
-        required: true,
+  ],
+  followers: [
+    {
+      userId: { type: Schema.Types.ObjectId, ref: "User" },
     },
-    firstName:{
-        type: String,
-        required: true,
+  ],
+  following: [
+    {
+      userId: { type: Schema.Types.ObjectId, ref: "User" },
     },
-    lastName:{
-        type: String,
-        required: true,
-    },
-    image:{
-        type: String,
-        required: true,
-    },
-    posts:{
-        items:[{
-            postId: { type: Schema.Types.ObjectId, ref:'Post'}
-        }]
-    },
-    comments:{
-        items:[{
-            commentId: { type: Schema.Types.ObjectId, ref:'Comment'}
-        }]
-    },
-    followers:{
-        users:[{
-            userId: { type: Schema.Types.ObjectId, ref:'User'}
-        }]
-    },
-    following:{
-        users:[{
-            userId: { type: Schema.Types.ObjectId, ref:'User'}
-        }]
-    }
+  ],
 });
 
-module.exports = mongoose.model('User',UserSchema);
+module.exports = mongoose.model("User", UserSchema);
