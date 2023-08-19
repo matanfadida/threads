@@ -1,8 +1,8 @@
 .post {margin: 20px;}
 .post-img { width: 40px; height: 40px; border-radius: 50%; border-style: solid; border-color: rgb(102, 102, 102); border-width: 1px;}
-.post .details {margin-bottom: 10px;}
+.post .details {margin-bottom: 10px; overflow-wrap: break-word;}
 .post li { display:inline-block;}
-.post hr {opacity: 0.3;}
+.post hr {opacity: 0.3; margin-top: -30px;}
 .post .side-two { position: relative; margin-left: 50px; top: -50px;}
 .post li > a {margin-right: 10px; color: white;}
-.post .ul-comlik > li {margin-right: 10px;}
+.post .ul-comlik > li {margin-right: 10px; color: rgb(102, 102, 102);}

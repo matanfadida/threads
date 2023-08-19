@@ -55,11 +55,6 @@ const App = () => {
       {activePage['profile'] && <Profile id={profileId}/>}
       {activePage['signup'] && <SignUp/>}
       {activePage['signin'] && <SignIn ChangePageHandler={ChangePageHandler} setToken={setToken}/>}
-      {/* <Profile/> */}
-      {/* <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/profile/:userId" element={<Profile/>} />
-      </Routes> */}
       <Footer activePage={activePage} ChangePageHandler={ChangePageHandler}/>
     </Fragment>
   );

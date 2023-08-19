@@ -16,8 +16,8 @@ const postSchema = new Schema({
     required: true,
   },
   likes: {
-    type: Number,
-    required: true,
+    count: {type: Number},
+    userId: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   comments: [
     {

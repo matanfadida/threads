@@ -25,7 +25,7 @@ const dummyPosts = [
 ];
 
 const Home = (props) => {
-  const [postApi, setPostApi] = useState();
+  const [postApi, setPostApi] = useState([]);
   const setError = props.setError;
   const token = props.token;
 

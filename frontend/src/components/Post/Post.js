@@ -13,8 +13,8 @@ const Post = (props) => {
             <img onClick={() => HandlerProfileLink(props._id, 'profile')} className={classes['post-img']} src={props.image} alt={props.name}/>
         </div>
         <div className={classes['side-two']}>
-            <strong>{props.name}</strong>
-            <p className={classes.details}>{props.text}</p>
+            <strong>{props.user.userName}</strong>
+            <p className={classes.details}>{props.text}sadasdasdasdasdasdadaedfweferfreferferfwedqdqw</p>
             <ul>
                 <li>
                     <a href="#1"><AiOutlineHeart size={25}/></a>
@@ -26,16 +26,17 @@ const Post = (props) => {
                     <a href="#4"><TbShare3 size={25}/></a>
                 </li>
             </ul>
-        </div>
-        <div>
+            <div>
             <ul className={classes['ul-comlik']}>
                 <li>
                     comment
                 </li>
                 <li>
-                    {props.likes} likes
+                    {props.likes.count} likes
+                    {/* {props.likes} likes */}
                 </li>
             </ul>
+        </div>
         </div>
         <hr/>
     </li>
