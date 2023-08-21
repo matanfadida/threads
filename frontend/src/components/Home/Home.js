@@ -57,7 +57,7 @@ const Home = (props) => {
       <Post
         key={post._id}
         _id={post._id}
-        image={post.imageUrl}
+        image={'http://localhost:5000/'+ post.imageUrl}
         user={post.user}
         text={post.content}
         comments={post.comments}

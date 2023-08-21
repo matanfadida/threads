@@ -14,31 +14,31 @@ const SignUp = () => {
 
     const SendRequestSignUp = async(e) => {
         e.preventDefault();
+        const formData = new FormData();
         const enterdEmail = emailInputRef.current.value;
         const enterdPassword = passwordInputRef.current.value;
         const enterdPasswordConfirm = passwordConfirmInputRef.current.value;
         const enterdUserName = userNameInputRef.current.value;
         const enterdFirstName = firstNameInputRef.current.value;
         const enterdLastName = lastNameInputRef.current.value;
-        const enterdImage = imageInputRef.current.value;
+        const enterdImage = imageInputRef.current.files[0];
+        formData.append("email", enterdEmail);
+        formData.append("password", enterdPassword);
+        formData.append("passwordConfirm", enterdPasswordConfirm);
+        formData.append("userName", enterdUserName);
+        formData.append("firstName", enterdFirstName);
+        formData.append("lastName", enterdLastName);
+        formData.append("image", enterdImage);
 
         try {
             const res = await fetch('http://localhost:5000/api/user/signup', {
               method: 'post',
-              body: JSON.stringify({
-                email: enterdEmail,
-                password: enterdPassword,
-                passwordConfirm: enterdPasswordConfirm,
-                userName: enterdUserName,
-                firstName: enterdFirstName,
-                lastName: enterdLastName,
-                image: enterdImage,
-              }),
-              headers: { 'Content-Type': 'application/json' },
+              body: formData,
             });
           
             if (!res.ok) {
-              throw new Error('Network response was not ok');
+                const error = await res.json();
+                throw error;
             }
           
             const data = await res.json(); // Use res.json() to parse the response data
@@ -69,7 +69,7 @@ const SignUp = () => {
             <input type="text" ref={lastNameInputRef}/>
         </div>
         <div>
-            <input type="text" ref={imageInputRef}/>
+            <input type="file" name="image" ref={imageInputRef}/>
         </div>
         <div>
             <button type="submit">הירשם</button>

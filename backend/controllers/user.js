@@ -8,8 +8,15 @@ exports.SignUp = async (req, res, next) => {
     const userName = req.body.userName;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
-    const image = req.body.image;
+    const image = req.file;
+    console.log('asd',image);
     try{
+        if(!req.file){
+            const error = new Error('No add Image !');
+            error.statusCode = 422;
+            throw error;
+        }
+        console.log('asdsadaasd',image);
         const hashedPass = await bcrypt.hash(password, 12);
         const newUser = new User({
             email: email,
@@ -17,12 +24,14 @@ exports.SignUp = async (req, res, next) => {
             userName: userName,
             firstName: firstName,
             lastName: lastName,
-            image: image,
+            image: image.path,
         });
         const result = await newUser.save();
         res.status(201).json({massage:"add user success!"});
     } catch (err){
-        err.statusCode = 500;
+        if(!err.statusCode){
+            err.statusCode = 500;
+        }
         next(err);
     }
 }
@@ -47,8 +56,9 @@ exports.SignIn = async (req, res, next) => {
         const token = jwt.sign({email:user.email, userId: user._id},"Sfa14shASFREgGETGE12!@#fdsf#$f@!F",{expiresIn:'1h'});
         res.status(200).json({token:token, userId: user._id})
     } catch (err){
-        console.log(err);
-        err.statusCode = 500;
+        if(!err.statusCode){
+            err.statusCode = 500;
+        }
         next(err);
     }
 }
