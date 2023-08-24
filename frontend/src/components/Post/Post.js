@@ -2,15 +2,17 @@ import classes from "./post.module.css";
 import { AiOutlineHeart } from 'react-icons/ai';
 // import { FaRegComment } from 'react-icons/fa';
 import { TbMessageCircle2, TbShare3 } from 'react-icons/tb';
+import { NavLink } from "react-router-dom";
 
 
 const Post = (props) => {
     const HandlerProfileLink = (id, page) => {
-        props.ChangePageHandler(page, id);
+        window.history.push("http://localhost:3000/profile/" + id);
+        props.ChangePageHandler(page);
     }
     return <li className={classes.post}>
         <div>
-            <img onClick={() => HandlerProfileLink(props._id, 'profile')} className={classes['post-img']} src={props.image} alt={props.name}/>
+            <NavLink to={`profile/${props._id}`}><img  className={classes['post-img']} src={props.image} alt={props.name}/></NavLink>
         </div>
         <div className={classes['side-two']}>
             <strong>{props.user.userName}</strong>

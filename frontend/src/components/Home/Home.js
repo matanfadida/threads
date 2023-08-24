@@ -1,37 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Post from "../Post/Post";
 
 import classes from "./Home.module.css";
-
-const dummyPosts = [
-  {
-    _id: "1",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-    name: "matan",
-    text: "sasdasdasdasdasd",
-    comments: "comments",
-    likes: 50,
-  },
-  {
-    _id: "2",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-    name: "matan2",
-    text: "sasdasdasdasdasd2",
-    comments: "comments2",
-    likes: 52,
-  },
-];
+import Context from "../context/context";
 
 const Home = (props) => {
+  const ctx = useContext(Context);
   const [postApi, setPostApi] = useState([]);
-  const setError = props.setError;
-  const token = props.token;
+  const setError = ctx.setError;
+  const token = ctx.token;
 
   useEffect(() => {
     const getPots = async () => {
       try{
+        ctx.setLoadingHandler(true);
           const response = await fetch(`http://localhost:5000/api/post/get-posts`,{
           headers: { Authorization: 'Bearer ' +  token}
         });
@@ -44,8 +26,10 @@ const Home = (props) => {
         const result = await response.json();
         console.log(result);
         setPostApi(result);
+        ctx.setLoadingHandler(false);
       }catch (error) {
-        setError(error);
+        ctx.setErrorHandler(error);
+        ctx.setLoadingHandler(false);
         console.log('error message: ',error.message);
       }
     };
@@ -62,20 +46,10 @@ const Home = (props) => {
         text={post.content}
         comments={post.comments}
         likes={post.likes}
-        ChangePageHandler={props.ChangePageHandler}
+        ChangePageHandler={() => ctx.ChangePageHandler}
       />
     );
   });
-  // const posts = dummyPosts.map((post) => {
-  //   return (
-  //     <Post
-  //       key={post._id}
-  //       _id={post._id}
-        
-  //       ChangePageHandler={props.ChangePageHandler}
-  //     />
-  //   );
-  // });
 
   return (
     <>

@@ -1,5 +1,9 @@
+import { useParams } from 'react-router-dom';
+
+
 const Profile = (props) => {
-  console.log(props.id);
+  const { Id } = useParams();
+  console.log('id',Id);
   return (
     <div>
         <div>
