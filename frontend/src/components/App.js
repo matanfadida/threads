@@ -4,6 +4,7 @@ import Footer from "./Footer/footer";
 import Profile from "./Profile/profile";
 import SignUp from "./Account/sign-up";
 import SignIn from "./Account/sign-in";
+import Search from "./Search/search";
 import AddPost from "./Post/AddPost";
 import ErrorPopup from "./error/error-popup";
 import Loader from "./Loader/loader";
@@ -17,14 +18,14 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile/:Id" element={<Profile />} />
+        <Route path="/addpost" element={<AddPost />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/addpost" element={<AddPost />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
       {ctx.isLoading && <Loader />}
       {ctx.error && <ErrorPopup />}
-      {ctx.activePage["addpost"] && <AddPost />}
-      {/* {ctx.activePage["home"] && <Home />} */}
-      {/* {ctx.activePage["profile"] && <Profile />} */}
-      {ctx.activePage["signup"] && <SignUp />}
-      {ctx.activePage["signin"] && <SignIn />}
       <Footer />
     </Fragment>
   );

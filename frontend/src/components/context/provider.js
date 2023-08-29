@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Context from "./context";
+import { useNavigate } from "react-router-dom";
 
 // const initUrlState = {
 //     'home': false,
@@ -15,19 +16,20 @@ const Provider = (props) => {
   const [error, setError] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
   const [token, setToken] = useState("");
+  const navigate = useNavigate();
   const [activePage, setActivePage] = useState({});
 
   const ChangePageHandler = (page) => {
-    console.log(page,'sadasdsd')
     const newUrlState = {
-      'home': false,
-      'search': false,
-      'profile': false,
-      'addpost': false,
-      'active': false,
-      'signup': false,
-      'signin': false,
+      home: false,
+      search: false,
+      profile: false,
+      addpost: false,
+      active: false,
+      signup: false,
+      signin: false,
     };
+    const userId = localStorage.getItem("userId");
     // const token = localStorage.getItem('token');
     // if(!token){
     //   newUrlState['signin'] = true;
@@ -36,36 +38,56 @@ const Provider = (props) => {
     // }
     newUrlState[page] = true;
     setActivePage(newUrlState);
-  }
-
-    const setLoadingHandler = (error) => {
-        setLoading(error);
+    switch (page) {
+      case "home":
+        navigate("/");
+        break;
+      case "search":
+        navigate("/search");
+        break;
+      case "profile":
+        navigate(`/profile/${userId}`);
+        break;
+      case "addpost":
+        navigate(`/addpost`);
+        break;
+      case "active":
+        // code block
+        break;
+      case "signin":
+        navigate(`/signin`);
+        break;
+      default:
+      // code block
     }
+  };
 
-    const setErrorHandler = (status) => {
-        setError(status);
-    }
+  const setLoadingHandler = (error) => {
+    setLoading(error);
+  };
 
-    const setTokenHandler = (token) => {
-        setToken(token);
-    }
+  const setErrorHandler = (status) => {
+    setError(status);
+  };
 
-    const cartContext = {
-        error,
-        ChangePageHandler,
-        isLoading,
-        setLoadingHandler,
-        setErrorHandler,
-        activePage,
-        token,
-        setTokenHandler
-      };
-    
-      return (
-        <Context.Provider value={cartContext}>
-          {props.children}
-        </Context.Provider>
-      );
-}
+  const setTokenHandler = (token) => {
+    setToken(token);
+  };
+
+  const cartContext = {
+    error,
+    ChangePageHandler,
+    isLoading,
+    setLoadingHandler,
+    setErrorHandler,
+    activePage,
+    token,
+    setTokenHandler,
+  };
+
+  return (
+    <Context.Provider value={cartContext}>{props.children}</Context.Provider>
+  );
+};
 
 export default Provider;

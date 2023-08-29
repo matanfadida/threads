@@ -9,7 +9,6 @@ exports.getPosts = async (req, res, next) => {
             error.statusCode = 500
             throw error;
         }
-        console.log(posts);
         res.status(200).json(posts);
     } catch {
         if(!err.statusCode){
@@ -60,12 +59,13 @@ exports.UpdateLikes = async(req, res, next) => {
     const postId = req.body.postId;
     const userId = req.userId;
     try{
-        const post = await Post.find({_id: postId});
+        const post = await Post.findOne({_id: postId});
         if(!post){
             const error = new Error('not have post!')
-            error.statusCode = 500
+            error.statusCode = 401
             throw error;
         }
+
         post.likes.count += like;
         post.likes.userId.push(req.userId);
 
