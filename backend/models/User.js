@@ -47,16 +47,15 @@ const UserSchema = new Schema({
       userId: { type: Schema.Types.ObjectId, ref: "User" },
     },
   ],
-  Activity:{
-    likes:[
+  Activity: {
+    likes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    notification: [
       {
-        posts: { type: Schema.Types.ObjectId, ref: "Post" },
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        action: { type: String, required: true },
+        postId: { type: Schema.Types.ObjectId, ref: "Post" },
       },
     ],
-    notification: [{
-      user:{type: Schema.Types.ObjectId, ref: "User"},
-      action: {type: String, required:true},
-      postId: { type: Schema.Types.ObjectId, ref: "Post" },  }]
   },
 });
 

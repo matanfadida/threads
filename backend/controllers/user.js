@@ -9,14 +9,12 @@ exports.SignUp = async (req, res, next) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const image = req.file;
-    console.log('asd',image);
     try{
         if(!req.file){
             const error = new Error('No add Image !');
             error.statusCode = 422;
             throw error;
         }
-        console.log('asdsadaasd',image);
         const hashedPass = await bcrypt.hash(password, 12);
         const newUser = new User({
             email: email,
