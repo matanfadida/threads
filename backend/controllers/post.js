@@ -61,7 +61,7 @@ exports.UpdateLikes = async (req, res, next) => {
   const postId = req.body.postId;
   const userId = req.userId;
   try {
-    const post = await Post.findOne({ _id: postId });
+    const post = await Post.findOne({ _id: postId }).populate("user");
     if (!post) {
       const error = new Error("not have post!");
       error.statusCode = 401;
@@ -77,6 +77,15 @@ exports.UpdateLikes = async (req, res, next) => {
       throw error;
     }
 
+    const userCreate = post.user;
+    if (!userCreate) {
+      const error = new Error("not find a user !");
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const newNotification = { user: userId, action: "like", postId: postId };
+
     if (like === -1) {
       post.likes.userId = post.likes.userId.filter(
         (item) => item.toString() !== req.userId
@@ -86,13 +95,16 @@ exports.UpdateLikes = async (req, res, next) => {
           (x) => x.toString() !== postId
         );
       }
+      userCreate.Activity.notification = userCreate.Activity.notification.filter(n => !findNotification(n,newNotification))
     } else {
       post.likes.userId.push(req.userId);
       user.Activity.likes.push(post._id);
+      userCreate.Activity.notification.push(newNotification);
     }
 
-    user.save();
-    post.save();
+    await user.save();
+    await userCreate.save();
+    await post.save();
 
     res.status(200).json({ message: "update like" });
   } catch (err) {
@@ -102,3 +114,19 @@ exports.UpdateLikes = async (req, res, next) => {
     next(err);
   }
 };
+
+const findNotification = (notification1, notification2) => {
+    if(notification1.user.toString() !== notification2.user.toString())
+    {
+        return false
+    }
+    if(notification1.action !== notification2.action)
+    {
+        return false
+    }
+    if(notification1.postId.toString() !== notification2.postId.toString())
+    {
+        return false
+    }
+    return true
+}
