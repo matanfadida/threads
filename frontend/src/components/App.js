@@ -10,7 +10,7 @@ import ErrorPopup from "./error/error-popup";
 import Loader from "./Loader/loader";
 import Context from "./context/context";
 import { Route, Routes } from "react-router-dom";
-import Activity from "./Activity/activity";
+import Activities from "./Activity/activities";
 
 const App = () => {
   const ctx = useContext(Context);
@@ -24,7 +24,7 @@ const App = () => {
         <Route path="/addpost" element={<AddPost />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/activity" element={<Activity />} />
+        <Route path="/activity" element={<Activities />} />
       </Routes>
       {ctx.isLoading && <Loader />}
       {ctx.error && <ErrorPopup />}

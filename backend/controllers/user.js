@@ -60,3 +60,43 @@ exports.SignIn = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.GetActivities = async(req, res, next) => {
+    const userId = req.userId;
+    try{
+        const user = await User.findOne({_id:userId});
+        if(!user){
+            const error = new Error('not find a user !');
+            error.statusCode = 401;
+            throw error;
+        }
+        const notification = user.Activity.notification;
+
+        const userAction = await User.findOne({_id:notification.user}).populate({
+            path: "user",
+            select: "userName image",
+          });
+        if(!userAction){
+            const error = new Error('not find a user !');
+            error.statusCode = 401;
+            throw error;//create notification
+        }
+
+        const post = await User.findOne({_id:notification.postId}).select('content');
+        if(!post){
+            const error = new Error('not find a post !');
+            error.statusCode = 401;
+            throw error;
+        }
+
+        res.status(200).json({message:"success", data:user.Activity.notification.populate({
+            path: "user",
+            select: "userName image",
+          })});
+    } catch (err){
+        if(!err.statusCode){
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

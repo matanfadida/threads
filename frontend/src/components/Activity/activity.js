@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 import classes from "./activity.module.css";
 import { AiFillHeart } from "react-icons/ai";
+import Button from "../UI/button";
 
-const Activity = () => {
+const Activity = (props) => {
   return (
     <div>
-      <ul>
-        <li className={classes["li-padding"]}>
+      <li className={classes["li-padding"]}>
           <div>
             <NavLink to={`profile/`}>
               <img
@@ -18,12 +18,12 @@ const Activity = () => {
               />
             </NavLink>
             <div className={classes.action}>
-                <AiFillHeart size={10}style={{
-      position: 'relative',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'
-    }}/>
+              <AiFillHeart
+                size={10}
+                style={{
+                  display: "flex",
+                }}
+              />
             </div>
           </div>
           <div className={classes.details}>
@@ -31,20 +31,19 @@ const Activity = () => {
               <ul>
                 <li>
                   <strong className={classes.name}>matantest</strong>
-                  <span className="span">23h</span>
+                  <span className={classes.span}>23h</span>
                 </li>
                 <li>
-                  <span className="span">followd</span>
+                  <span className={classes.span}>Followed you</span>
                 </li>
               </ul>
             </div>
             <div>
-              <button>Follow</button>
+              <Button>Follow</Button>
             </div>
           </div>
         </li>
         <hr className={classes.hr} />
-      </ul>
     </div>
   );
 };
