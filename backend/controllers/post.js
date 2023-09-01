@@ -61,10 +61,10 @@ exports.UpdateLikes = async (req, res, next) => {
   const postId = req.body.postId;
   const userId = req.userId;
   try {
-    const post = await Post.findOne({ _id: postId }).populate("user");
+    const post = await Post.findOne({ _id: postId });
     if (!post) {
       const error = new Error("not have post!");
-      error.statusCode = 401;
+      error.statusCode = 402;
       throw error;
     }
 
@@ -77,34 +77,38 @@ exports.UpdateLikes = async (req, res, next) => {
       throw error;
     }
 
-    const userCreate = post.user;
-    if (!userCreate) {
-      const error = new Error("not find a user !");
-      error.statusCode = 401;
-      throw error;
-    }
-
     const newNotification = { user: userId, action: "like", postId: postId };
 
     if (like === -1) {
-      post.likes.userId = post.likes.userId.filter(
-        (item) => item.toString() !== req.userId
-      );
+      post.likes.userId = post.likes.userId.filter((item) => item.toString() !== req.userId);
+
       if (user.Activity.likes.find((x) => x.toString() === postId)) {
         user.Activity.likes = user.Activity.likes.filter(
           (x) => x.toString() !== postId
         );
       }
-      userCreate.Activity.notification = userCreate.Activity.notification.filter(n => !findNotification(n,newNotification))
     } else {
       post.likes.userId.push(req.userId);
       user.Activity.likes.push(post._id);
-      userCreate.Activity.notification.push(newNotification);
+    }
+    await post.save();
+    await user.save();
+
+
+
+    const userCreate = await User.findOne({ _id: post.user });
+    if (!userCreate) {
+      const error = new Error("not find a user !");
+      error.statusCode = 401;
+      throw error;
+    }
+    if(like === -1){
+        userCreate.Activity.notification = userCreate.Activity.notification.filter(n => !findNotification(n, newNotification))
+    }else{
+        userCreate.Activity.notification.push(newNotification);
     }
 
-    await user.save();
     await userCreate.save();
-    await post.save();
 
     res.status(200).json({ message: "update like" });
   } catch (err) {

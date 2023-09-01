@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import classes from "./post.module.css"; 
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-// import { FaRegComment } from 'react-icons/fa';
 import { TbMessageCircle2, TbShare3 } from 'react-icons/tb';
 import { NavLink } from "react-router-dom";
 import Context from "../context/context";
@@ -10,6 +9,7 @@ import Context from "../context/context";
 const Post = (props) => {
     const ctx = useContext(Context);
     const [liked, setLiked] = useState(false);
+    const [countLikes, setCountLikes] = useState(props.likes.count);
 
     useEffect(() => {
         var userLike = props.likes.userId.find(x => x === localStorage.getItem("userId"));
@@ -35,7 +35,12 @@ const Post = (props) => {
         }
 
         const result = await response.json();
-        console.log(result);
+        if (liked) {
+            setCountLikes((prevCountLikes) => prevCountLikes - 1);
+          } else {
+            setCountLikes((prevCountLikes) => prevCountLikes + 1);
+          }
+        setLiked(!liked);
 
         } catch (error) {
             ctx.setErrorHandler(error);
@@ -69,8 +74,7 @@ const Post = (props) => {
                     comment
                 </li>
                 <li>
-                    {props.likes.count} likes
-                    {/* {props.likes} likes */}
+                    {countLikes} likes
                 </li>
             </ul>
         </div>

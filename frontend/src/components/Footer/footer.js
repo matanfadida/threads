@@ -52,12 +52,12 @@ const Footer = (props) => {
           )}
         </li>
         <li>
-          {ctx.activePage["active"] ? (
+          {ctx.activePage["activity"] ? (
             <AiFillHeart size={30} />
           ) : (
             <AiOutlineHeart
               color="rgb(102, 102, 102)"
-              onClick={() => SetChangeHandler("active")}
+              onClick={() => SetChangeHandler("activity")}
               size={30}
             />
           )}

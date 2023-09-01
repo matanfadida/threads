@@ -51,8 +51,8 @@ const Provider = (props) => {
       case "addpost":
         navigate(`/addpost`);
         break;
-      case "active":
-        // code block
+      case "activity":
+        navigate(`/activity`);
         break;
       case "signin":
         navigate(`/signin`);

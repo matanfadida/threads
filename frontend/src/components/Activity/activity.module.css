@@ -1,0 +1,43 @@
+.img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: rgb(102, 102, 102);
+  border-width: 1px;
+}
+
+.hr {
+  opacity: 0.3;
+  margin-top: -30px;
+}
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-left: 50px;
+  top: -50px;
+}
+.name{
+    margin-right: 5px;
+}
+
+.span{
+    color:rgb(102, 102, 102);
+}
+
+.li-padding{
+    padding: 0px 10px;
+}
+.action {
+    top: 35px;
+    background-color: #fa3472;
+    border: 4px solid black;
+    padding: 3px;
+    left: 35px;
+    max-width: 13px;
+    position: absolute;
+    border-radius: 50%;
+    max-height: 13px;
+}
