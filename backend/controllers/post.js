@@ -100,10 +100,12 @@ exports.UpdateLikes = async (req, res, next) => {
       throw error;
     }
 
-    const newNotification = { user: userId, action: "like", postId: postId };
+    const newNotification = { userOwner:userCreate._id, user: userId, action: "like", postId: postId };
 
     if(like === -1){
-        Activity.deleteOne(newNotification);
+        var objectDeleted = await Activity.findOne(newNotification);
+        await Activity.deleteOne(newNotification);
+        userCreate.Activity.notification = userCreate.Activity.notification.filter(item => item.toString() !== objectDeleted._id.toString());
     }else{
         const newActivity = new Activity(newNotification);
         await newActivity.save();
@@ -120,19 +122,3 @@ exports.UpdateLikes = async (req, res, next) => {
     next(err);
   }
 };
-
-// const findNotification = (notification1, notification2) => {
-//     if(notification1.user.toString() !== notification2.user.toString())
-//     {
-//         return false
-//     }
-//     if(notification1.action !== notification2.action)
-//     {
-//         return false
-//     }
-//     if(notification1.postId.toString() !== notification2.postId.toString())
-//     {
-//         return false
-//     }
-//     return true
-// }

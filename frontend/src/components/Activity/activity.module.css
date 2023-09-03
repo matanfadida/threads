@@ -40,3 +40,9 @@
     border-radius: 50%;
     max-height: 11px;
 }
+
+.userName {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}

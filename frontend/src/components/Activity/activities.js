@@ -44,6 +44,8 @@ const Activities = () => {
         action={activity.action}
         userId={activity.user}
         postId={activity.postId}
+        image={"http://localhost:5000/" + activity.userOwner.image}
+        userName={activity.userOwner.userName}
       />
     );
   });

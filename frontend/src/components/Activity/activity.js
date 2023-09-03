@@ -8,11 +8,11 @@ const Activity = (props) => {
     <div>
       <li className={classes["li-padding"]}>
           <div>
-            <NavLink to={`profile/`}>
+            <NavLink to={`/profile/${props.userId}`}>
               <img
                 className={classes.img}
                 src={
-                  "http://localhost:5000/images/4521ccee-b72c-40e6-9bb5-66d30b3d3d12jurica-koletic-7YVZYZeITc8-unsplash.jpg"
+                  props.image
                 }
                 alt={"sads"}
               />
@@ -30,7 +30,7 @@ const Activity = (props) => {
             <div>
               <ul>
                 <li>
-                  <strong className={classes.name}>matantest</strong>
+                  <NavLink className={classes.userName} to={`/profile/${props.userId}`}><strong className={classes.name}>{props.userName}</strong></NavLink>
                   <span className={classes.span}>23h</span>
                 </li>
                 <li>
