@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const Activity = require('../models/Activity');
 const User = require("../models/User");
 
 exports.getPosts = async (req, res, next) => {
@@ -77,8 +78,6 @@ exports.UpdateLikes = async (req, res, next) => {
       throw error;
     }
 
-    const newNotification = { user: userId, action: "like", postId: postId };
-
     if (like === -1) {
       post.likes.userId = post.likes.userId.filter((item) => item.toString() !== req.userId);
 
@@ -94,18 +93,21 @@ exports.UpdateLikes = async (req, res, next) => {
     await post.save();
     await user.save();
 
-
-
     const userCreate = await User.findOne({ _id: post.user });
     if (!userCreate) {
       const error = new Error("not find a user !");
       error.statusCode = 401;
       throw error;
     }
+
+    const newNotification = { user: userId, action: "like", postId: postId };
+
     if(like === -1){
-        userCreate.Activity.notification = userCreate.Activity.notification.filter(n => !findNotification(n, newNotification))
+        Activity.deleteOne(newNotification);
     }else{
-        userCreate.Activity.notification.push(newNotification);
+        const newActivity = new Activity(newNotification);
+        await newActivity.save();
+        userCreate.Activity.notification.push(newActivity._id);
     }
 
     await userCreate.save();
@@ -119,18 +121,18 @@ exports.UpdateLikes = async (req, res, next) => {
   }
 };
 
-const findNotification = (notification1, notification2) => {
-    if(notification1.user.toString() !== notification2.user.toString())
-    {
-        return false
-    }
-    if(notification1.action !== notification2.action)
-    {
-        return false
-    }
-    if(notification1.postId.toString() !== notification2.postId.toString())
-    {
-        return false
-    }
-    return true
-}
+// const findNotification = (notification1, notification2) => {
+//     if(notification1.user.toString() !== notification2.user.toString())
+//     {
+//         return false
+//     }
+//     if(notification1.action !== notification2.action)
+//     {
+//         return false
+//     }
+//     if(notification1.postId.toString() !== notification2.postId.toString())
+//     {
+//         return false
+//     }
+//     return true
+// }

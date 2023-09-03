@@ -49,13 +49,7 @@ const UserSchema = new Schema({
   ],
   Activity: {
     likes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-    notification: [
-      {
-        user: { type: Schema.Types.ObjectId, ref: "User" },
-        action: { type: String, required: true },
-        postId: { type: Schema.Types.ObjectId, ref: "Post" },
-      },
-    ],
+    notification: [{type: Schema.Types.ObjectId, ref: "Activity"}],
   },
 });
 
