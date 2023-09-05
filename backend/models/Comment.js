@@ -14,7 +14,11 @@ const CommentSchema = new Schema({
     likes:{
         type:Number,
         required:true,
-    }
+    },
+    content: {
+        type: String,
+        required: true,
+      },
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);

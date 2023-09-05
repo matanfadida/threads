@@ -67,25 +67,41 @@ exports.SignIn = async (req, res, next) => {
 };
 
 exports.GetActivities = async (req, res, next) => {
-  const userId = req.userId;
-  try {
-    const activities = await Activity.find({ userOwner: userId }).populate({
-      path: "userOwner",
-      select: "userName image",
-    });
-
-    if (!activities) {
-      const error = new Error("user not activities !");
-      error.statusCode = 422;
-      throw error;
+    const userId = req.userId;
+    try {
+      const activities = await Activity.find({ userOwner: userId }).populate([
+        {
+          path: "userOwner",
+          select: "userName image",
+        },
+        {
+          path: 'postId',
+          select: 'content',
+          options: { 
+            skipInvalidIds: true // This option skips populating if postId is not present
+          },
+        },
+        {
+            path: 'commentId',
+            select: 'content',
+            options: { 
+              skipInvalidIds: true // This option skips populating if postId is not present
+            },
+          }
+      ]);
+  
+      if (!activities) {
+        const error = new Error("user not activities !");
+        error.statusCode = 422;
+        throw error;
+      }
+  
+      console.log(activities);
+      res.status(200).json({ message: "success !", data: activities });
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     }
-
-    console.log(activities);
-    res.status(200).json({ message: "success !", data: activities }); // Send the populated notification data in the response if needed
-  } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
-  }
-};
+  };

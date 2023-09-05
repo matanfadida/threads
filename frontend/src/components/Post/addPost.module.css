@@ -1,0 +1,7 @@
+.popup-main{
+    min-width: 100%;
+    background-color: yellowgreen;
+    min-height: 72%;
+    position: absolute;
+    border-radius: 5px;
+}

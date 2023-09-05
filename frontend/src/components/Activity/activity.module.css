@@ -32,13 +32,24 @@
 }
 .action {
     top: 35px;
-    background-color: #fa3472;
     border: 4px solid black;
     padding: 3px;
     left: 35px;
     position: absolute;
     border-radius: 50%;
     max-height: 11px;
+}
+
+.background-like{
+    background-color: #fe047b;
+}
+
+.background-comment{
+    background-color: #1ac3fb;
+}
+
+.background-follow{
+    background-color: #6a3bea;
 }
 
 .userName {

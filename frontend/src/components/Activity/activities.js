@@ -43,7 +43,8 @@ const Activities = () => {
         key={activity._id}
         action={activity.action}
         userId={activity.user}
-        postId={activity.postId}
+        postId={activity.postId._id}
+        postContent={activity.postId.content}
         image={"http://localhost:5000/" + activity.userOwner.image}
         userName={activity.userOwner.userName}
       />
