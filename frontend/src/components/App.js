@@ -28,7 +28,7 @@ const App = () => {
       </Routes>
       {ctx.isLoading && <Loader />}
       {ctx.error && <ErrorPopup />}
-      {<AddPost />}
+      {/* {<AddPost />} */}
       <Footer />
     </Fragment>
   );

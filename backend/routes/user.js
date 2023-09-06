@@ -11,4 +11,6 @@ router.post('/signin', userController.SignIn);
 
 router.get('/get-activities',isAuth, userController.GetActivities);
 
+router.get('/get-user',isAuth, userController.GetUser);
+
 module.exports = router;

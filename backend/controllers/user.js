@@ -66,6 +66,24 @@ exports.SignIn = async (req, res, next) => {
   }
 };
 
+exports.GetUser = async(req, res, next) => {
+    const userId = req.userId;
+    try {
+        const user = await User.findOne({ _id: userId });
+        if (!user) {
+            const error = new Error("not find a user !");
+            error.statusCode = 401;
+            throw error;
+          }
+          res.status(200).json({message:"success !", data: user});
+    }catch (err) {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      }
+}
+
 exports.GetActivities = async (req, res, next) => {
     const userId = req.userId;
     try {

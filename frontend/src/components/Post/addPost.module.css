@@ -1,7 +1,10 @@
 .popup-main{
     min-width: 100%;
-    background-color: yellowgreen;
+    background-color: #161616;
     min-height: 72%;
     position: absolute;
     border-radius: 5px;
+    top: 167px;
 }
+.post-img { width: 40px; height: 40px; border-radius: 50%; border-style: solid; border-color: rgb(102, 102, 102); border-width: 1px;}
+.side-two { position: relative; margin-left: 50px; top: -43px;}
