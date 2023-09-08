@@ -1,12 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Context from "../context/context";
 import classes from "./addPost.module.css";
-import { HiOutlinePaperClip } from "react-icons/hi";
+import { PiPaperclipThin } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 
 const AddPost = () => {
   const ctx = useContext(Context);
   const [user, setUser] = useState({});
+  const [styleInput, setStyleInput] = useState(true);
+  const [showX, setshowX] = useState(false);
+  const textInputRef = useRef();
 
   useEffect(() => {
     const getUser = async () => {
@@ -61,43 +64,82 @@ const AddPost = () => {
       //if user not auth return to sign in page
     }
   };
-  
+
+  const changeInput = (e) => {
+    setStyleInput(false);
+    setshowX(true);
+  };
+
+  const clearInput = () => {
+    if (textInputRef.current) {
+      textInputRef.current.value = "";
+    }
+    setStyleInput(true);
+    setshowX(false);
+  };
+
   return (
     <div className={classes["popup-main"]}>
-        <div>
+      <div>
+        <ul className={classes["ul-header"]}>
+          <li>
             <button>Cancel</button>
             <h4>New thread</h4>
-            <h4></h4>
-        </div>
-      <div>
-        <NavLink to={`profile/${user._id}`}>
-          <img
-            className={classes["post-img"]}
-            src={'http://localhost:5000/' + user.image}
-            alt={user.name}
-          />
-        </NavLink>
+          </li>
+        </ul>
       </div>
-      <div className={classes["side-two"]}>
+      <hr />
+      <div className={classes["post-main"]}>
         <div>
-          <ul>
-            <li>
-              <NavLink
-                className={classes.userName}
-                to={`/profile/${user._id}`}
-              >
-                <strong className={classes.name}>{user.userName}</strong>
-              </NavLink>
-            </li>
-            <li>
-              <HiOutlinePaperClip size={10} />
-            </li>
-          </ul>
+          <NavLink to={`profile/${user._id}`}>
+            <img
+              className={classes["post-img"]}
+              src={"http://localhost:5000/" + user.image}
+              alt={user.name}
+            />
+          </NavLink>
+        </div>
+        <div className={classes["side-two"]}>
+          <div>
+            <ul>
+              <li className={classes["li-userName"]}>
+                <NavLink
+                  className={classes.userName}
+                  to={`/profile/${user._id}`}
+                >
+                  <strong className={classes.name}>{user.userName}</strong>
+                </NavLink>
+                <span
+                  onClick={clearInput}
+                  className={showX ? "" : "display_none"}
+                >
+                  x
+                </span>
+              </li>
+              <li>
+                <input
+                  onChange={changeInput}
+                  ref={textInputRef}
+                  className={styleInput ? classes.input : classes["input-text"]}
+                  placeholder="Start a thread..."
+                />
+              </li>
+              <li className={classes.icon}>
+                <PiPaperclipThin size={30} />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div>
-        <span>share to</span>
-        <button onClick={AddPostHandler}>post</button>
+      <div className={classes["send-post"]}>
+      <select>
+        <option value="option1">Anyone can reply</option>
+        <option value="option2">Profile you follow</option>
+        <option value="option3">Mentioned only</option>
+      </select>
+        <button onClick={AddPostHandler} className={classes["button-post"]}>
+          Post
+        </button>
       </div>
     </div>
   );
