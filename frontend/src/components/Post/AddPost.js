@@ -9,7 +9,8 @@ const AddPost = () => {
   const [user, setUser] = useState({});
   const [styleInput, setStyleInput] = useState(true);
   const [showX, setshowX] = useState(false);
-  const textInputRef = useRef();
+  const contentInputRef = useRef();
+  const selectOption = useRef();
 
   useEffect(() => {
     const getUser = async () => {
@@ -40,15 +41,19 @@ const AddPost = () => {
   }, []);
 
   const AddPostHandler = async () => {
+    const formData = new FormData();
+    const enterdContent = contentInputRef.current.value;
+    const enterdSelectOption = selectOption.current.value;
+    // const enterdImage = imageInputRef.current.files[0];
+    formData.append("content", enterdContent);
+    formData.append("showTo", enterdSelectOption);
+    // formData.append("image", enterdImage);
+
     try {
       const res = await fetch("http://localhost:5000/api/post/add-post", {
         method: "post",
-        body: JSON.stringify({
-          content: "asdasdasdasd",
-          imageUrl: "asdasdas",
-        }),
+        body: formData,
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer " + ctx.token,
         },
       });
@@ -67,12 +72,16 @@ const AddPost = () => {
 
   const changeInput = (e) => {
     setStyleInput(false);
-    setshowX(true);
+    if (+e.target.value.length === 0) {
+      setshowX(false);
+    } else {
+      setshowX(true);
+    }
   };
 
   const clearInput = () => {
-    if (textInputRef.current) {
-      textInputRef.current.value = "";
+    if (contentInputRef.current) {
+      contentInputRef.current.value = "";
     }
     setStyleInput(true);
     setshowX(false);
@@ -119,7 +128,7 @@ const AddPost = () => {
               <li>
                 <input
                   onChange={changeInput}
-                  ref={textInputRef}
+                  ref={contentInputRef}
                   className={styleInput ? classes.input : classes["input-text"]}
                   placeholder="Start a thread..."
                 />
@@ -132,11 +141,11 @@ const AddPost = () => {
         </div>
       </div>
       <div className={classes["send-post"]}>
-      <select>
-        <option value="option1">Anyone can reply</option>
-        <option value="option2">Profile you follow</option>
-        <option value="option3">Mentioned only</option>
-      </select>
+        <select className={classes.select} ref={selectOption}>
+          <option value="1">Anyone can reply</option>
+          <option value="2">Profile you follow</option>
+          <option value="3">Mentioned only</option>
+        </select>
         <button onClick={AddPostHandler} className={classes["button-post"]}>
           Post
         </button>

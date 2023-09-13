@@ -25,8 +25,9 @@ exports.getPosts = async (req, res, next) => {
 exports.addPost = async (req, res, next) => {
   const userId = req.userId;
   const content = req.body.content;
+  const showTo = req.body.content;
   const createAt = new Date();
-  const imageUrl = req.body.imageUrl;
+  const imageUrl = req.body.image;
   const likes = { count: 0, userId: [] };
   try {
     const user = await User.findOne({ _id: userId });
@@ -39,8 +40,9 @@ exports.addPost = async (req, res, next) => {
 
     const post = new Post({
       content: content,
-      imageUrl: imageUrl,
+      // imageUrl: imageUrl,
       createAt: createAt,
+      showTo:showTo,
       likes: likes,
       user: userId,
     });

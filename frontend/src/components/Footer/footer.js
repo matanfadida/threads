@@ -42,7 +42,7 @@ const Footer = (props) => {
         </li>
         <li>
           {ctx.activePage["addpost"] ? (
-            <BiMessageSquareEdit size={30} />
+            <BiMessageSquareEdit size={30} onClick={() => SetChangeHandler("addpost")} />
           ) : (
             <BiMessageSquareEdit
               color="rgb(102, 102, 102)"

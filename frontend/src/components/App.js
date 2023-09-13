@@ -19,16 +19,15 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile/:Id" element={<Profile />} />
-        <Route path="/addpost" element={<AddPost />} />
-        <Route path="/search" element={<Search />} />
         {/* <Route path="/addpost" element={<AddPost />} /> */}
+        <Route path="/search" element={<Search />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/activity" element={<Activities />} />
       </Routes>
       {ctx.isLoading && <Loader />}
       {ctx.error && <ErrorPopup />}
-      {/* {<AddPost />} */}
+      {ctx.showAddPopup && <AddPost/>}
       <Footer />
     </Fragment>
   );

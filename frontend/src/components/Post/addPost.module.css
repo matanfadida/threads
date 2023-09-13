@@ -88,3 +88,9 @@
 .post-main{
     padding: 0px 10px;
 }
+
+.select{
+    background: none;
+    color: white;
+    border: none;
+}

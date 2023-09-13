@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 const Provider = (props) => {
   const [error, setError] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
+  const [showAddPopup, setShowAddPopup] = useState(false);
   const [token, setToken] = useState("");
   const navigate = useNavigate();
   const [activePage, setActivePage] = useState({});
@@ -49,7 +50,8 @@ const Provider = (props) => {
         navigate(`/profile/${userId}`);
         break;
       case "addpost":
-        navigate(`/addpost`);
+        setShowAddPopup(!showAddPopup);
+        // navigate(`/addpost`);
         break;
       case "activity":
         navigate(`/activity`);
@@ -83,6 +85,7 @@ const Provider = (props) => {
     activePage,
     token,
     setTokenHandler,
+    showAddPopup,
   };
 
   return (

@@ -9,6 +9,9 @@ const postSchema = new Schema({
   },
   imageUrl: {
     type: String,
+  },
+  showTo: {
+    type: String,
     required: true,
   },
   createAt: {

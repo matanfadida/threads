@@ -8,7 +8,8 @@ const Context = React.createContext({
     isLoading: false,
     activePage: {},
     token:"",
-    setTokenHandler: (token) => {}
+    setTokenHandler: (token) => {},
+    showAddPopup: false,
 });
 
 export default Context;
