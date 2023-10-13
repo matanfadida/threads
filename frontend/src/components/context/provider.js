@@ -51,7 +51,6 @@ const Provider = (props) => {
         break;
       case "addpost":
         setShowAddPopup(!showAddPopup);
-        // navigate(`/addpost`);
         break;
       case "activity":
         navigate(`/activity`);

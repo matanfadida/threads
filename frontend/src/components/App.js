@@ -1,4 +1,4 @@
-import { React, Fragment, useContext } from "react";
+import { React, Fragment, useContext, useState } from "react";
 import Home from "./Home/Home";
 import Footer from "./Footer/footer";
 import Profile from "./Profile/profile";
@@ -14,12 +14,12 @@ import Activities from "./Activity/activities";
 
 const App = () => {
   const ctx = useContext(Context);
+
   return (
     <Fragment>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile/:Id" element={<Profile />} />
-        {/* <Route path="/addpost" element={<AddPost />} /> */}
         <Route path="/search" element={<Search />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
@@ -27,7 +27,7 @@ const App = () => {
       </Routes>
       {ctx.isLoading && <Loader />}
       {ctx.error && <ErrorPopup />}
-      {ctx.showAddPopup && <AddPost/>}
+      <AddPost />
       <Footer />
     </Fragment>
   );

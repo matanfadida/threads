@@ -88,7 +88,7 @@ const AddPost = () => {
   };
 
   return (
-    <div className={classes["popup-main"]}>
+    <div className={`${classes["popup-main"]} ${ctx.showAddPopup ? classes.open : classes.close}`}>
       <div>
         <ul className={classes["ul-header"]}>
           <li>
