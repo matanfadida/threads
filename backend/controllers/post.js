@@ -92,9 +92,10 @@ exports.UpdateLikes = async (req, res, next) => {
       post.likes.userId.push(req.userId);
       user.Activity.likes.push(post._id);
     }
+
     await post.save();
     await user.save();
-
+    
     const userCreate = await User.findOne({ _id: post.user });
     if (!userCreate) {
       const error = new Error("not find a user !");
@@ -109,6 +110,7 @@ exports.UpdateLikes = async (req, res, next) => {
         await Activity.deleteOne(newNotification);
         userCreate.Activity.notification = userCreate.Activity.notification.filter(item => item.toString() !== objectDeleted._id.toString());
     }else{
+      newNotification.createdAt = new Date();
         const newActivity = new Activity(newNotification);
         await newActivity.save();
         userCreate.Activity.notification.push(newActivity._id);
