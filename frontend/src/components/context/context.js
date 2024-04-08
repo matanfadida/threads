@@ -10,6 +10,8 @@ const Context = React.createContext({
     token:"",
     setTokenHandler: (token) => {},
     showAddPopup: false,
+    isAuthenticated: false,
+    IsAuthenticatedHandler: () => {}
 });
 
 export default Context;

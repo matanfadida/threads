@@ -10,13 +10,15 @@ const Activity = (props) => {
   useEffect(() => {
     if (props.action === "like") {
       setIcon(
-        <div className={`${classes.action} ${classes["background-like"]}`}>
+        <div className={classes["div-action"]} >
+          <span className={`${classes.action} ${classes["background-like"]}`}>
           <AiFillHeart
             size={10}
             style={{
               display: "flex",
             }}
           />
+          </span>
         </div>
       );
     } else if (props.action === "comment") {

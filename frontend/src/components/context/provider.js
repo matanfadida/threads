@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Context from "./context";
 import { useNavigate } from "react-router-dom";
 
@@ -14,11 +14,22 @@ import { useNavigate } from "react-router-dom";
 
 const Provider = (props) => {
   const [error, setError] = useState(undefined);
-  const [isLoading, setLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [showAddPopup, setShowAddPopup] = useState(false);
   const [token, setToken] = useState("");
   const navigate = useNavigate();
   const [activePage, setActivePage] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token !== '') {
+      setIsAuthenticated(true);
+      setTokenHandler(token);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [])
 
   const ChangePageHandler = (page) => {
     const newUrlState = {
@@ -31,6 +42,7 @@ const Provider = (props) => {
       signin: false,
     };
     const userId = localStorage.getItem("userId");
+
     // const token = localStorage.getItem('token');
     // if(!token){
     //   newUrlState['signin'] = true;
@@ -65,6 +77,7 @@ const Provider = (props) => {
 
   const setLoadingHandler = (error) => {
     setLoading(error);
+    console.log('as')
   };
 
   const setErrorHandler = (status) => {
@@ -73,6 +86,10 @@ const Provider = (props) => {
 
   const setTokenHandler = (token) => {
     setToken(token);
+  };
+
+  const IsAuthenticatedHandler = (token) => {
+    setIsAuthenticated(token);
   };
 
   const cartContext = {
@@ -85,6 +102,8 @@ const Provider = (props) => {
     token,
     setTokenHandler,
     showAddPopup,
+    isAuthenticated,
+    IsAuthenticatedHandler
   };
 
   return (
