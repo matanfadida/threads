@@ -1,5 +1,6 @@
 import { useContext, useRef } from "react";
 import Context from "../context/context";
+import classes from "./sign-in.module.css";
 
 const SignIn = (props) => {
   const ctx = useContext(Context);
@@ -42,19 +43,27 @@ const SignIn = (props) => {
   };
 
   return (
-    <form onSubmit={SendRequestSignIn}>
-      <div>
-        <input type="email" placeholder='דוא"ל' ref={emailInputRef} />
-      </div>
-      <div>
-        <input type="password" placeholder="*********" ref={passwordInputRef} />
-      </div>
-      <div>
-        <button>היכנס</button>
-        <button onClick={MoveToSignUpHandler}>הירשם</button>
-      </div>
-    </form>
+    <div className={classes.wrapper}>
+      <div className={classes.background}></div>
+      <form onSubmit={SendRequestSignIn} className={classes.form}>
+        <h1 className={classes.title}>Sign In</h1>
+        <div>
+          <input className={classes.input} type="email" placeholder="email" ref={emailInputRef} />
+        </div>
+        <div>
+          <input className={classes.input} type="password" placeholder="*********" ref={passwordInputRef} />
+        </div>
+        <div className={classes.div_button}>
+          <button className={classes.button} onClick={MoveToSignUpHandler}>Register</button>
+          <button className={classes.button} onClick={MoveToSignUpHandler}>Forget Password</button>
+        </div>
+        <div>
+          <button className={classes.button_login}>Login</button>
+        </div>
+      </form>
+    </div>
   );
 };
+
 
 export default SignIn;

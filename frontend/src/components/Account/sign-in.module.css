@@ -1,0 +1,62 @@
+.wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+  }
+  
+  .background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  .form {
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgb(102 102 102 / 60%);
+    background-color: rgba(255, 255, 255, 0.13);
+    padding: 20px;
+  }
+  
+  .input {
+    padding: 10px;
+    background: #484848;
+    border-radius: 10px;
+    width: 94%;
+    color: white;
+    margin-bottom: 20px;
+    border: #484848;
+  }
+  
+  .div_button {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+  }
+  
+  .button_login {
+    background: #ffffff;
+    width: 100%;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .button {
+    border: none;
+    font-size: 15px;
+    background: none;
+    color: white;
+  }
+
+  .title{
+    text-align: center;
+  }

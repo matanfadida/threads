@@ -3,8 +3,10 @@ const Activity = require('../models/Activity');
 const User = require("../models/User");
 
 exports.getPosts = async (req, res, next) => {
+  const userId = req.body.userId;
+  console.log(userId);
   try {
-    const posts = await Post.find().populate({
+    const posts = await Post.find({user: userId}).populate({
       path: "user",
       select: "userName image",
     });
