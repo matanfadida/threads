@@ -4,9 +4,10 @@ const User = require("../models/User");
 
 exports.getPosts = async (req, res, next) => {
   const userId = req.body.userId;
-  console.log(userId);
+  console.log('user',userId);
   try {
-    const posts = await Post.find({user: userId}).populate({
+    const query = userId ? { user: userId } : {};
+    const posts = await Post.find(query).populate({
       path: "user",
       select: "userName image",
     });

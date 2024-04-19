@@ -66,60 +66,62 @@ exports.SignIn = async (req, res, next) => {
   }
 };
 
-exports.GetUser = async(req, res, next) => {
-    const userId = req.userId;
-    try {
-        const user = await User.findOne({ _id: userId });
-        if (!user) {
-            const error = new Error("not find a user !");
-            error.statusCode = 401;
-            throw error;
-          }
-          res.status(200).json({message:"success !", data: user});
-    }catch (err) {
-        if (!err.statusCode) {
-          err.statusCode = 500;
-        }
-        next(err);
-      }
+exports.GetUser = async (req, res, next) => {
+  // const userId = req.userId;
+  const userId = req.body.userId;
+  const query = req.body.query;
+  try {
+    const user = await User.findOne({ _id: userId }).select(query);
+    if (!user) {
+      const error = new Error("not find a user !");
+      error.statusCode = 401;
+      throw error;
+    }
+    res.status(200).json({ message: "success !", data: user });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 }
 
 exports.GetActivities = async (req, res, next) => {
-    const userId = req.userId;
-    try {
-      const activities = await Activity.find({ userOwner: userId }).populate([
-        {
-          path: "userOwner",
-          select: "userName image",
+  const userId = req.userId;
+  try {
+    const activities = await Activity.find({ userOwner: userId }).populate([
+      {
+        path: "userOwner",
+        select: "userName image",
+      },
+      {
+        path: 'postId',
+        select: 'content',
+        options: {
+          skipInvalidIds: true // This option skips populating if postId is not present
         },
-        {
-          path: 'postId',
-          select: 'content',
-          options: { 
-            skipInvalidIds: true // This option skips populating if postId is not present
-          },
+      },
+      {
+        path: 'commentId',
+        select: 'content',
+        options: {
+          skipInvalidIds: true // This option skips populating if postId is not present
         },
-        {
-            path: 'commentId',
-            select: 'content',
-            options: { 
-              skipInvalidIds: true // This option skips populating if postId is not present
-            },
-          }
-      ]);
-  
-      if (!activities) {
-        const error = new Error("user not activities !");
-        error.statusCode = 422;
-        throw error;
       }
-  
-      console.log(activities);
-      res.status(200).json({ message: "success !", data: activities });
-    } catch (err) {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+    ]);
+
+    if (!activities) {
+      const error = new Error("user not activities !");
+      error.statusCode = 422;
+      throw error;
     }
-  };
+
+    console.log(activities);
+    res.status(200).json({ message: "success !", data: activities });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};

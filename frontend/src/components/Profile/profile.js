@@ -9,45 +9,50 @@ const Profile = (props) => {
 
   const setError = ctx.setError;
   const token = ctx.token;
-  console.log('id',Id);
+
   useEffect(() => {
-    const getPots = async () => {
-      try{
+    const getUser = async () => {
+      try {
         ctx.setLoadingHandler(true);
-          const response = await fetch(`http://localhost:5000/api/post/get-posts`,{
+        const response = await fetch(
+          `http://localhost:5000/api/user/get-user`,
+          {
             method:'post',
             body: JSON.stringify({
               userId: Id,
-          }),
-          headers: { Authorization: 'Bearer ' +  token}
-        });
-        
+              query: '-Activity -comments -email -password',
+            }),
+            headers: { Authorization: "Bearer " + token , 'Content-Type': 'application/json'},
+          }
+        );
+
         if (!response.ok) {
           const error = await response.json();
           throw error;
         }
 
         const result = await response.json();
-        console.log(result);
-        // setPostApi(result);
+        console.log(result.data);
         ctx.setLoadingHandler(false);
-      }catch (error) {
+      } catch (error) {
         ctx.setErrorHandler(error);
         ctx.setLoadingHandler(false);
-        console.log('error message: ',error.message);
+        console.log("error message: ", error.message);
       }
     };
-      getPots();
+    getUser();
   }, []);
+
   return (
     <div>
-        <div>
-            hader
-        </div>
+      <div>
+        hader
+      </div>
       <div>
         <div>
-          <h3>matan</h3>
+          <h3>Matan Fadida</h3>
           <span>image profile</span>
+          <span>username</span>
         </div>
         <p>some text</p>
         <div>
