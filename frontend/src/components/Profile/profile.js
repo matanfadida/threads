@@ -1,10 +1,12 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import Context from "../context/context";
 import { useParams } from 'react-router-dom';
+import classes from './profile.module.css';
 
 
 const Profile = (props) => {
   const { Id } = useParams();
+  const [user, setUser] = useState({});
   const ctx = useContext(Context);
 
   const setError = ctx.setError;
@@ -33,6 +35,7 @@ const Profile = (props) => {
 
         const result = await response.json();
         console.log(result.data);
+        setUser(result.data);
         ctx.setLoadingHandler(false);
       } catch (error) {
         ctx.setErrorHandler(error);
@@ -45,25 +48,30 @@ const Profile = (props) => {
 
   return (
     <div>
-      <div>
+      <div className={classes['header']}>
         hader
       </div>
-      <div>
-        <div>
-          <h3>Matan Fadida</h3>
-          <span>image profile</span>
-          <span>username</span>
+      <div className={classes['div']}>
+        <div className={`${classes['display_flex_space']} ${classes['margin_button_8']}`}>
+          <div>
+          <h3 className={classes['margin_button_8']}>{user.firstName} {user.lastName}</h3>
+          <span>{user.userName}</span>
+          </div>
+          <div>
+          <span><img  className={classes['post-img']} src={'http://localhost:5000/' + user.image} alt={user.name}/></span>
+          </div>
         </div>
-        <p>some text</p>
-        <div>
+        <p className={classes['margin_button_8']}>some text</p>
+        <div className={classes['margin_button_15']}>
           <span>image</span>
           <span>50 following</span>
         </div>
-        <div>
-          <button>edit</button>
-          <button>share</button>
+        <div className={classes['display_flex_space']}>
+          <button className={classes['buttons']}>Edit profile</button>
+          <button className={`${classes['buttons']} ${classes['margin_left_10']}`}>Share profile</button>
         </div>
       </div>
+      <hr/>
       <div>
 
       </div>

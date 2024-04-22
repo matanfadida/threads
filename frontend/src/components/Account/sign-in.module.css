@@ -43,8 +43,10 @@
   }
   
   .button_login {
-    background: #ffffff;
+    background: none;
+    color: white;
     width: 100%;
+    border: 2px solid gray;
     font-size: 20px;
     padding: 10px;
     border-radius: 5px;
