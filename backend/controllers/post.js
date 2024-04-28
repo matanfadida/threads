@@ -2,12 +2,14 @@ const Post = require("../models/Post");
 const Activity = require('../models/Activity');
 const User = require("../models/User");
 
+const PageView = 5;
+
 exports.getPosts = async (req, res, next) => {
-  const userId = req.body.userId;
-  console.log('user',userId);
+  const userId = req.query.userId;
+  const page = req.query.page || 1;
   try {
     const query = userId ? { user: userId } : {};
-    const posts = await Post.find(query).populate({
+    const posts = await Post.find(query).skip((page - 1) * PageView).limit(PageView).populate({
       path: "user",
       select: "userName image",
     });

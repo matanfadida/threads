@@ -33,7 +33,7 @@ h3{
     color: white;
     font-size: 17px;
     border-radius: 9px;
-    border: 2px solid gray;
+    border: 2px solid rgb(45 46 46);
 }
 
 p, span{
@@ -42,4 +42,30 @@ p, span{
 
 .margin_left_10{
     margin-left: 10px;
+}
+
+.div-threads{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-around;
+}
+
+.threads-button{
+    text-align: center;
+    width: 50%;
+    padding-bottom: 8px;
+    background: none;
+    border: none;
+    color: white;
+}
+
+.div-threads .active{
+    padding-bottom: 8px;
+    border-bottom: 1px solid;
+    text-align: center;
+    width: 50%;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #2e2f2f;
 }

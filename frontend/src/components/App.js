@@ -33,6 +33,10 @@ const App = () => {
     return <Loader />; // Show loading indicator until initial load is complete
   }
 
+  if (ctx.error){
+    return <ErrorPopup />
+  }
+
   return (
     <Fragment>
       {ctx.isLoading && <Loader />}
@@ -42,13 +46,12 @@ const App = () => {
         ) : (
           <Route path="/" element={<SignIn />} />
         )}
-        <Route path="/profile/:Id" element={<Profile />} />
+        <Route key={window.location.pathname} path="/profile/:Id" element={<Profile />} />
         <Route path="/search" element={<Search />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/activity" element={<Activities />} />
       </Routes>
-      {ctx.error && <ErrorPopup />}
       {/* <AddPost /> */}
       <Footer />
     </Fragment>

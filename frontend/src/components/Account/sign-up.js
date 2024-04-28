@@ -60,13 +60,13 @@ const SignUp = () => {
             <input type="password" placeholder='*********' ref={passwordConfirmInputRef}/>
         </div>
         <div>
-            <input type="text" ref={userNameInputRef}/>
+            <input type="text" placeholder='userName' ref={userNameInputRef}/>
         </div>
         <div>
-            <input type="text" ref={firstNameInputRef}/>
+            <input type="text" placeholder='firstName' ref={firstNameInputRef}/>
         </div>
         <div>
-            <input type="text" ref={lastNameInputRef}/>
+            <input type="text" placeholder='lastName' ref={lastNameInputRef}/>
         </div>
         <div>
             <input type="file" name="image" ref={imageInputRef}/>

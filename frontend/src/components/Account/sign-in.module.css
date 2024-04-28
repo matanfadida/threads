@@ -28,12 +28,12 @@
   
   .input {
     padding: 10px;
-    background: #484848;
+    background: black;
     border-radius: 10px;
     width: 94%;
     color: white;
     margin-bottom: 20px;
-    border: #484848;
+    border: 2px solid rgb(45 46 46);
   }
   
   .div_button {
@@ -43,10 +43,10 @@
   }
   
   .button_login {
-    background: none;
+    background: black;
     color: white;
     width: 100%;
-    border: 2px solid gray;
+    border: 2px solid rgb(45 46 46);
     font-size: 20px;
     padding: 10px;
     border-radius: 5px;

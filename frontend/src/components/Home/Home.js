@@ -15,7 +15,6 @@ const Home = (props) => {
       try{
         ctx.setLoadingHandler(true);
           const response = await fetch(`http://localhost:5000/api/post/get-posts`,{
-          method: 'post',
           headers: { Authorization: 'Bearer ' +  token}
         });
         
