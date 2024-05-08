@@ -1,7 +1,10 @@
-.footer {
-    display: none;
+.heder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
-    bottom: 0;
+    top: 0;
+    width: 100%;
     background-color: #101010;
     opacity: 0.9;
     color: white;
@@ -10,10 +13,13 @@
     transform: translateX(-50%); /* Translate back half of footer's width to center it */
  }
 
+
 @media only screen and (max-width: 700px) {
-    .footer{
-        display: block;
+    .heder{
       width: 100%;
       margin: 0px;
+    }
+    .nav_none{
+        display: none;
     }
   }

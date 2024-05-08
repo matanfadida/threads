@@ -16,8 +16,9 @@ const AddPost = () => {
     const getUser = async () => {
       try {
         ctx.setLoadingHandler(true);
+        const userId = localStorage.getItem("userId");
         const response = await fetch(
-          `http://localhost:5000/api/user/get-user`,
+          `http://localhost:5000/api/user/get-user?userId=${userId}`,
           {
             headers: { Authorization: "Bearer " + ctx.token },
           }
@@ -37,7 +38,9 @@ const AddPost = () => {
         console.log("error message: ", error.message);
       }
     };
-    getUser();
+    if(ctx.showAddPopup){
+      getUser();
+    }
   }, []);
 
   const AddPostHandler = async () => {
@@ -87,12 +90,16 @@ const AddPost = () => {
     setshowX(false);
   };
 
+  const Close = () => {
+    ctx.ChangePageHandler("addpost")
+  }
+
   return (
     <div className={`${classes["popup-main"]} ${ctx.showAddPopup ? classes.open : classes.close}`}>
       <div>
         <ul className={classes["ul-header"]}>
           <li>
-            <button>Cancel</button>
+            <button onClick={Close}>Cancel</button>
             <h4>New thread</h4>
           </li>
         </ul>

@@ -22,14 +22,10 @@ const Profile = (props) => {
       try {
         ctx.setLoadingHandler(true);
         console.log('ad');
+
         const userResponse = await fetch(
-          `http://localhost:5000/api/user/get-user`,
+          `http://localhost:5000/api/user/get-user?userId=${Id}&query=-Activity -comments -email -password`,
           {
-            method: 'post',
-            body: JSON.stringify({
-              userId: Id,
-              query: '-Activity -comments -email -password',
-            }),
             headers: { Authorization: "Bearer " + token, 'Content-Type': 'application/json' },
           }
         );

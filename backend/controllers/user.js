@@ -67,9 +67,8 @@ exports.SignIn = async (req, res, next) => {
 };
 
 exports.GetUser = async (req, res, next) => {
-  // const userId = req.userId;
-  const userId = req.body.userId;
-  const query = req.body.query;
+  const userId = req.query.userId;
+  const query = req.query.query;
   try {
     const user = await User.findOne({ _id: userId }).select(query);
     if (!user) {

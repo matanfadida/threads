@@ -1,0 +1,4 @@
+
+.nav { min-width: 400px; justify-content: space-between; display: flex; margin: 20px; }
+.nav li { display:inline-block; }
+.nav .not_active { color: rgb(102, 102, 102); }

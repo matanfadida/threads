@@ -11,6 +11,8 @@ import Loader from "./Loader/loader";
 import Context from "./context/context";
 import { Route, Routes } from "react-router-dom";
 import Activities from "./Activity/activities";
+import classes from "./App.module.css";
+import Heder from "./Heder/Heder";
 
 const App = () => {
   const ctx = useContext(Context);
@@ -38,23 +40,28 @@ const App = () => {
   }
 
   return (
-    <Fragment>
+    <div className={classes.main}>
+
+    <Fragment >
       {ctx.isLoading && <Loader />}
+      <Heder/>
       <Routes>
         {ctx.isAuthenticated ? (
           <Route path="/" element={<Home />} />
         ) : (
           <Route path="/" element={<SignIn />} />
         )}
-        <Route key={window.location.pathname} path="/profile/:Id" element={<Profile />} />
+        <Route path="/profile/:Id" element={<Profile />} />
         <Route path="/search" element={<Search />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/activity" element={<Activities />} />
       </Routes>
-      {/* <AddPost /> */}
+        {ctx.showAddPopup && <AddPost />}
       <Footer />
     </Fragment>
+    </div>
+
   );
 };
 
