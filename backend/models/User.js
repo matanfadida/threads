@@ -51,6 +51,8 @@ const UserSchema = new Schema({
     likes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     notification: [{type: Schema.Types.ObjectId, ref: "Activity"}],
   },
+}, {
+  timestamps: true,
 });
 
 module.exports = mongoose.model("User", UserSchema);

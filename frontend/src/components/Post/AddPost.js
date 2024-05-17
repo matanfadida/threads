@@ -3,6 +3,7 @@ import Context from "../context/context";
 import classes from "./addPost.module.css";
 import { PiPaperclipThin } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
+import Popup from "../UI/Popup";
 
 const AddPost = () => {
   const ctx = useContext(Context);
@@ -95,17 +96,8 @@ const AddPost = () => {
   }
 
   return (
-    <div className={`${classes["popup-main"]} ${ctx.showAddPopup ? classes.open : classes.close}`}>
-      <div>
-        <ul className={classes["ul-header"]}>
-          <li>
-            <button onClick={Close}>Cancel</button>
-            <h4>New thread</h4>
-          </li>
-        </ul>
-      </div>
-      <hr />
-      <div className={classes["post-main"]}>
+    <Popup onClick={Close} show={ctx.showAddPopup} title={"New Threads"}>
+    <div className={classes["post-main"]}>
         <div>
           <NavLink to={`profile/${user._id}`}>
             <img
@@ -157,7 +149,7 @@ const AddPost = () => {
           Post
         </button>
       </div>
-    </div>
+    </Popup>
   );
 };
 

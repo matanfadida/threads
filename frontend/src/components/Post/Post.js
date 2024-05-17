@@ -4,11 +4,13 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { TbMessageCircle2, TbShare3 } from 'react-icons/tb';
 import { NavLink } from "react-router-dom";
 import Context from "../context/context";
+import AddComment from "./AddComments";
 
 
 const Post = (props) => {
     const ctx = useContext(Context);
     const [liked, setLiked] = useState(false);
+    const [showAddComment, setShowAddComment] = useState(false);
     const [countLikes, setCountLikes] = useState(props.likes.count);
 
     useEffect(() => {
@@ -49,15 +51,20 @@ const Post = (props) => {
         }
 
     }
+
+    const showAddCommentHandler = () => {
+        setShowAddComment(!showAddComment);
+    }
     
     return <li>
+        { showAddComment && <AddComment postId={props._id} show={showAddComment} showAddCommentHandler={showAddCommentHandler}/> }
         <div className={classes.post}>
             <div>
                 <NavLink to={`profile/${props.user._id}`}><img className={classes['post-img']} src={props.image} alt={props.name} /></NavLink>
             </div>
             <div className={classes['side-two']}>
                 <strong>{props.user.userName}</strong>
-                <p className={classes.details}>{props.text}sadasdasdasdasdasdadaedfweferfreferferfwedqdqw</p>
+                <p className={classes.details}>{props.text}</p>
                 <ul>
                     <li>
                         <div className={classes['div-icons']}>
@@ -71,8 +78,8 @@ const Post = (props) => {
                     </li>
                     <li>
                         <div className={classes['div-icons']}>
-                            <span>
-                                <a href="#2"><TbMessageCircle2 size={20} /></a>
+                            <span onClick={showAddCommentHandler}>
+                                <TbMessageCircle2 size={20} />
                             </span>
                             <span>
                                 0

@@ -1,0 +1,65 @@
+.popup-main {
+    min-width: 100%;
+    background-color: #161616;
+    min-height: 72%;
+    position: absolute;
+    border-radius: 10px;
+    top: 167px;
+    z-index: 2;
+  }
+  .ul-header {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0px;
+    text-align: center; 
+  }
+  
+  .ul-header li {
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: center; 
+  }
+  
+  .ul-header h4 {
+    margin: 0 auto; 
+  }
+  .ul-header button {
+      background: none;
+      color: white;
+      border: none;
+      font-size: medium;
+  }
+  
+  .open {
+    animation-name: listOpen;
+    animation-duration: 0.8s;
+  }
+  
+  .close {
+    animation-name: listClose;
+    animation-duration: 0.8s;
+    opacity: 0;
+  }
+  
+  @keyframes listOpen {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes listClose {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+  

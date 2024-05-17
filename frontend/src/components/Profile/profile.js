@@ -116,13 +116,10 @@ const Profile = (props) => {
 
   return (
     <div>
-      <div className={classes['header']}>
-        hader
-      </div>
       <div className={classes['div']}>
         <div className={`${classes['display_flex_space']} ${classes['margin_button_8']}`}>
           <div>
-            <h3 className={classes['margin_button_8']}>{user.firstName} {user.lastName}</h3>
+            <h2 className={classes['margin_button_8']}>{user.firstName} {user.lastName}</h2>
             <span>{user.userName}</span>
           </div>
           <div>
@@ -134,9 +131,8 @@ const Profile = (props) => {
           <span>image</span>
           <span>{user.followers.length} following</span>
         </div>
-        <div className={classes['display_flex_space']}>
+        <div>
           <button className={classes['buttons']}>Edit profile</button>
-          <button className={`${classes['buttons']} ${classes['margin_left_10']}`}>Share profile</button>
         </div>
       </div>
       <div>

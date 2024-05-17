@@ -1,6 +1,7 @@
 const Post = require("../models/Post");
 const Activity = require('../models/Activity');
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 const PageView = 5;
 
@@ -10,6 +11,29 @@ exports.getPosts = async (req, res, next) => {
   try {
     const query = userId ? { user: userId } : {};
     const posts = await Post.find(query).skip((page - 1) * PageView).limit(PageView).populate({
+      path: "user",
+      select: "userName image",
+    });
+    if (!posts) {
+      const error = new Error("not have post!");
+      error.statusCode = 500;
+      throw error;
+    }
+    res.status(200).json(posts);
+  } catch {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+exports.getPost = async (req, res, next) => {
+  const postId = req.query.postId;
+  console.log('postId', postId);
+  try {
+    const query = {_id: postId};
+    const posts = await Post.findOne(query).populate({
       path: "user",
       select: "userName image",
     });
@@ -131,3 +155,27 @@ exports.UpdateLikes = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.AddComment = async (req, res, next) => {
+  const userId = req.userId;
+  const comments = req.body.comments;
+  const postId = req.body.postId;
+  const commentId = req.body.commentId;
+  try{
+    if(commentId === undefined){
+      var post = await Post.findOne({_id: postId});
+
+      comments.map(comment => {
+        var newComment = new Comment(comment);
+        newComment.save();
+        post.comments.push(newComment._id);
+     });
+    }
+    res.status(200).json({ message: "add comment" });
+  }catch(err){
+    if (!err.statusCode) {
+      err.statusCode = 400;
+    }
+    next(err);
+  }
+}
