@@ -6,3 +6,19 @@
     background: none;
     font-weight: bold;
 }
+
+.button-post{
+    border-radius: 20px;
+    padding: 9px 19px;
+    font-weight: 600;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.button-post.active{
+    border-radius: 20px;
+    padding: 9px 19px;
+    font-weight: 600;
+    opacity: 1;
+    cursor: pointer;
+}

@@ -4,6 +4,7 @@ import classes from "./addPost.module.css";
 import { PiPaperclipThin } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 import Popup from "../UI/Popup";
+import ButtonPost from "../UI/buttonPost";
 
 const AddPost = () => {
   const ctx = useContext(Context);
@@ -81,6 +82,8 @@ const AddPost = () => {
     } else {
       setshowX(true);
     }
+    contentInputRef.current.style.height = "inherit";
+    contentInputRef.current.style.height = `${contentInputRef.current.scrollHeight}px`;
   };
 
   const clearInput = () => {
@@ -125,7 +128,7 @@ const AddPost = () => {
                 </span>
               </li>
               <li>
-                <input
+                <textarea
                   onChange={changeInput}
                   ref={contentInputRef}
                   className={styleInput ? classes.input : classes["input-text"]}
@@ -145,9 +148,7 @@ const AddPost = () => {
           <option value="2">Profile you follow</option>
           <option value="3">Mentioned only</option>
         </select>
-        <button onClick={AddPostHandler} className={classes["button-post"]}>
-          Post
-        </button>
+        <ButtonPost onClick={AddPostHandler} className={showX ? "active" : ""}>Post</ButtonPost>
       </div>
     </Popup>
   );

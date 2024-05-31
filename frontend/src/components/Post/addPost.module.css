@@ -24,6 +24,7 @@
     border: none;
     color: rgb(102, 102, 102);
     margin-bottom: 20px;
+    resize: none;
     width: 98%;
 }
 .input-text{
@@ -31,6 +32,7 @@
     border: none;
     color: white;
     margin-bottom: 20px;
+    resize: none;
     width: 98%;
     outline: none;
 }
@@ -55,14 +57,23 @@
 .send-post{
     display: flex;
     justify-content: space-between;
-    margin: 0px 10px;
+    margin: 0px 20px 25px 20px;
 }
 .post-main{
     padding: 0px 10px;
+    overflow-y: scroll;
+    width: 620px;
+    height: 470px;
 }
 
 .select{
     background: none;
     color: white;
     border: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .post-main{
+    height: 580px;
+  }
 }
